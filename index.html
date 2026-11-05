@@ -1,0 +1,2612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- ============================================================
+       EVENTECH · Landing Page
+       Catering y organización integral de eventos · Sur de Bogotá
+       Todo el proyecto está contenido en este único archivo.
+       ============================================================ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2a1426">
+  <meta name="description" content="EVENTECH: catering, decoración, música, entretenimiento y organización integral de eventos en el sur de Bogotá. Tú celebras, nosotros nos encargamos de todo.">
+  <title>EVENTECH | Catering y organización integral de eventos</title>
+
+  <!-- Favicon y vista previa para redes -->
+  <link rel="icon" type="image/png" href="eventech%20logo.png">
+  <meta property="og:title" content="EVENTECH | Lo que otros sueñan, nuestras manos lo diseñan">
+  <meta property="og:description" content="Catering, decoración, DJ, entretenimiento y logística en un solo equipo. Organizamos eventos memorables en el sur de Bogotá.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="arriba.jpg">
+
+  <!-- Fuentes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+
+  <!-- Imagen principal: se carga primero para mejorar la experiencia -->
+  <link rel="preload" as="image" href="arriba.jpg" fetchpriority="high">
+
+  <!-- Detecta JavaScript para las animaciones (si no hay JS, el contenido sigue visible) -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <style>
+    /* ============================================================
+       1. VARIABLES Y BASE
+       ============================================================ */
+    :root {
+      --ink: #2a1426;
+      --ink-2: #3b1d35;
+      --wine: #7a2141;
+      --wine-dark: #5d1730;
+      --gold: #b8894a;
+      --gold-light: #e6cd9c;
+      --cream: #fbf7f1;
+      --cream-2: #f4ece1;
+      --white: #ffffff;
+      --muted: #6d5a66;
+      --line: rgba(58, 24, 50, 0.12);
+      --line-light: rgba(255, 255, 255, 0.12);
+      --shadow-sm: 0 8px 24px rgba(42, 20, 38, 0.06);
+      --shadow-md: 0 28px 60px -26px rgba(42, 20, 38, 0.32);
+      --radius: 22px;
+      --header-h: 78px;
+      --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+      --font-body: "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+      --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--ink);
+      background: var(--cream);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (max-width: 980px) {
+      body.nav-open { overflow: hidden; }
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    ul, ol { margin: 0; padding: 0; list-style: none; }
+    h1, h2, h3, h4, p { margin: 0; }
+
+    ::selection { background: var(--gold-light); color: var(--ink); }
+
+    :focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: -100px;
+      left: 1rem;
+      z-index: 999;
+      padding: 0.8rem 1.2rem;
+      background: var(--ink);
+      color: var(--white);
+      border-radius: 0 0 12px 12px;
+      font-weight: 700;
+      transition: top 0.25s ease;
+    }
+    .skip-link:focus { top: 0; }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      margin-inline: auto;
+      padding-inline: clamp(1.15rem, 4vw, 2rem);
+    }
+
+    .section {
+      position: relative;
+      padding-block: clamp(4.5rem, 9vw, 7.5rem);
+      scroll-margin-top: calc(var(--header-h) + 18px);
+    }
+    .section--white { background: var(--white); }
+    .section--soft { background: var(--cream-2); }
+
+    .section--dark {
+      position: relative;
+      overflow: hidden;
+      color: var(--cream);
+      background: var(--ink);
+    }
+    .section--dark::before {
+      content: "";
+      position: absolute;
+      inset: -30% -10% auto auto;
+      width: 620px;
+      height: 620px;
+      background: radial-gradient(circle, rgba(184, 137, 74, 0.24) 0%, rgba(184, 137, 74, 0) 68%);
+      pointer-events: none;
+    }
+    .section--dark::after {
+      content: "";
+      position: absolute;
+      inset: auto auto -40% -15%;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle, rgba(122, 33, 65, 0.4) 0%, rgba(122, 33, 65, 0) 70%);
+      pointer-events: none;
+    }
+    .section--dark > .container { position: relative; z-index: 1; }
+
+    /* ============================================================
+       2. COMPONENTES GENERALES
+       ============================================================ */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-bottom: 1rem;
+      font-size: 0.71rem;
+      font-weight: 800;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+      color: var(--wine);
+    }
+    .eyebrow::before {
+      content: "";
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .section-head { max-width: 720px; margin-bottom: clamp(2.4rem, 5vw, 3.6rem); }
+    .section-head--center { margin-inline: auto; text-align: center; }
+    .section-head--center .eyebrow { justify-content: center; }
+    .section-head h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.4vw, 3.25rem);
+      line-height: 1.12;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .section-head p {
+      margin-top: 1rem;
+      color: var(--muted);
+      font-size: clamp(0.98rem, 1.5vw, 1.08rem);
+      max-width: 62ch;
+    }
+    .section-head--center p { margin-inline: auto; }
+    .section--dark .eyebrow { color: var(--gold-light); }
+    .section--dark .section-head h2 { color: var(--white); }
+    .section--dark .section-head p { color: rgba(251, 247, 241, 0.7); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.92rem 1.55rem;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+      white-space: nowrap;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease),
+        background-color 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+    }
+    .btn svg { width: 17px; height: 17px; flex: 0 0 auto; transition: transform 0.25s var(--ease); }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:hover svg { transform: translateX(3px); }
+
+    .btn--primary {
+      background: var(--wine);
+      color: var(--white);
+      box-shadow: 0 12px 26px -12px rgba(122, 33, 65, 0.75);
+    }
+    .btn--primary:hover { background: var(--wine-dark); box-shadow: 0 18px 34px -14px rgba(122, 33, 65, 0.85); }
+    .btn--gold {
+      background: linear-gradient(120deg, var(--gold-light), var(--gold));
+      color: var(--ink);
+      box-shadow: 0 12px 28px -14px rgba(184, 137, 74, 0.9);
+    }
+    .btn--gold:hover { background: linear-gradient(120deg, #f0dbae, #c99a58); }
+    .btn--ghost { background: transparent; color: var(--ink); border-color: rgba(42, 20, 38, 0.2); }
+    .btn--ghost:hover { border-color: var(--wine); color: var(--wine); background: rgba(122, 33, 65, 0.04); }
+    .btn--outline-light { background: transparent; color: var(--white); border-color: rgba(255, 255, 255, 0.4); }
+    .btn--outline-light:hover { border-color: var(--gold-light); color: var(--gold-light); background: rgba(255, 255, 255, 0.06); }
+    .btn--sm { padding: 0.72rem 1.15rem; font-size: 0.82rem; }
+
+    .icon { width: 22px; height: 22px; flex: 0 0 auto; }
+
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--wine);
+      transition: gap 0.25s var(--ease), color 0.25s var(--ease);
+    }
+    .text-link svg { width: 15px; height: 15px; }
+    .text-link:hover { gap: 0.7rem; color: var(--gold); }
+
+    /* ============================================================
+       3. HEADER Y NAVEGACIÓN
+       ============================================================ */
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .site-header.is-scrolled,
+    .site-header.nav-open {
+      background: rgba(251, 247, 241, 0.94);
+      border-bottom-color: rgba(58, 24, 50, 0.08);
+      box-shadow: 0 12px 30px -24px rgba(42, 20, 38, 0.4);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .nav-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      height: var(--header-h);
+    }
+
+    .brand { display: inline-flex; align-items: center; gap: 0.7rem; flex: 0 0 auto; }
+    .brand__logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--white);
+      border: 1px solid rgba(184, 137, 74, 0.4);
+      box-shadow: 0 6px 16px rgba(42, 20, 38, 0.12);
+    }
+    .brand__text { display: flex; flex-direction: column; line-height: 1.05; }
+    .brand__text strong {
+      font-family: var(--font-display);
+      font-size: 1.16rem;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+    }
+    .brand__text small {
+      margin-top: 0.22rem;
+      font-size: 0.56rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .nav { display: flex; align-items: center; gap: 0.25rem; }
+    .nav ul { display: flex; align-items: center; gap: 0.1rem; }
+    .nav a:not(.btn) {
+      position: relative;
+      display: inline-block;
+      padding: 0.55rem 0.68rem;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--ink);
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+    .nav a:not(.btn):hover { color: var(--wine); background: rgba(122, 33, 65, 0.06); }
+    .nav a:not(.btn).is-active { color: var(--wine); background: rgba(122, 33, 65, 0.08); }
+    .nav__cta { margin-left: 0.6rem; }
+
+    .nav-toggle {
+      display: none;
+      position: relative;
+      z-index: 2;
+      width: 46px;
+      height: 46px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.25s ease, background-color 0.25s ease;
+    }
+    .nav-toggle:hover { border-color: var(--gold); }
+    .nav-toggle span {
+      display: block;
+      width: 19px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--ink);
+      transition: transform 0.3s var(--ease), opacity 0.2s ease;
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ============================================================
+       4. HERO
+       ============================================================ */
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 100svh;
+      overflow: hidden;
+      padding-top: calc(var(--header-h) + clamp(2rem, 6vw, 4rem));
+      padding-bottom: clamp(3.5rem, 7vw, 5rem);
+      background:
+        radial-gradient(900px 520px at 88% 8%, rgba(230, 205, 156, 0.42), transparent 64%),
+        radial-gradient(720px 520px at 0% 88%, rgba(122, 33, 65, 0.1), transparent 62%),
+        var(--cream);
+    }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      align-items: center;
+      gap: clamp(2.5rem, 6vw, 5rem);
+      width: 100%;
+    }
+    .hero__copy { position: relative; z-index: 2; }
+    .hero h1 {
+      margin: 0.4rem 0 0.4rem;
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 10vw, 7.4rem);
+      font-weight: 600;
+      line-height: 0.92;
+      letter-spacing: 0.035em;
+      color: var(--ink);
+    }
+    .hero h1::after {
+      content: "";
+      display: block;
+      width: 72px;
+      height: 3px;
+      margin-top: 1rem;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    }
+    .hero__tagline {
+      max-width: 30ch;
+      margin-bottom: 1.25rem;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.35rem, 2.6vw, 2rem);
+      line-height: 1.35;
+      color: var(--wine);
+      text-wrap: balance;
+    }
+    .hero__lead { max-width: 47ch; color: var(--muted); font-size: clamp(0.98rem, 1.4vw, 1.06rem); }
+    .hero__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.9rem; }
+    .hero__stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: clamp(1.3rem, 4vw, 2.8rem);
+      margin-top: clamp(2rem, 4vw, 2.8rem);
+      padding-top: 1.6rem;
+      border-top: 1px solid var(--line);
+    }
+    .hero__stat strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      line-height: 1;
+      color: var(--ink);
+    }
+    .hero__stat span {
+      display: block;
+      margin-top: 0.35rem;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .hero__media {
+      position: relative;
+      width: 100%;
+      max-width: 470px;
+      margin-inline: auto;
+      padding: 0 10px;
+    }
+    .hero__figure {
+      position: relative;
+      margin: 0;
+      aspect-ratio: 4 / 5;
+      border-radius: 260px 260px 30px 30px;
+      overflow: hidden;
+      background: var(--cream-2);
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(184, 137, 74, 0.4);
+    }
+    .hero__figure img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+    .hero__figure:hover img { transform: scale(1.045); }
+    .hero__figure::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 250px 250px 22px 22px;
+      pointer-events: none;
+    }
+    .hero__float {
+      position: absolute;
+      left: -16px;
+      bottom: 34px;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      max-width: 245px;
+      padding: 0.75rem 0.95rem;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 20px 40px -20px rgba(42, 20, 38, 0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .hero__float-icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--wine);
+      color: var(--gold-light);
+    }
+    .hero__float-icon svg { width: 18px; height: 18px; }
+    .hero__float strong { display: block; font-size: 0.76rem; line-height: 1.3; color: var(--ink); }
+    .hero__float small { display: block; margin-top: 0.15rem; font-size: 0.65rem; color: var(--muted); }
+
+    .hero__badge {
+      position: absolute;
+      top: 26px;
+      right: -8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--cream);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 14px 30px -14px rgba(42, 20, 38, 0.7);
+    }
+    .hero__badge svg { width: 13px; height: 13px; color: var(--gold-light); }
+
+    .hero__ring {
+      position: absolute;
+      top: 22%;
+      right: -42px;
+      width: 104px;
+      height: 104px;
+      border: 1px solid rgba(184, 137, 74, 0.55);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero__ring::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 10px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    .hero__scroll {
+      position: absolute;
+      left: 50%;
+      bottom: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero__scroll::after {
+      content: "";
+      width: 1px;
+      height: 34px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.35; transform: scaleY(0.7); transform-origin: top; }
+      50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    }
+
+    /* ============================================================
+       5. CINTA DE SERVICIOS
+       ============================================================ */
+    .marquee {
+      overflow: hidden;
+      padding: 0.95rem 0;
+      background: var(--ink);
+      border-block: 1px solid rgba(184, 137, 74, 0.3);
+    }
+    .marquee__track { display: flex; width: max-content; animation: marqueeMove 32s linear infinite; }
+    .marquee:hover .marquee__track { animation-play-state: paused; }
+    .marquee__group { display: flex; align-items: center; gap: 2.4rem; padding-right: 2.4rem; }
+    .marquee__group span {
+      display: inline-flex;
+      align-items: center;
+      gap: 2.4rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: rgba(251, 247, 241, 0.78);
+    }
+    .marquee__group span::after {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+    @keyframes marqueeMove { to { transform: translateX(-50%); } }
+
+    /* ============================================================
+       6. NOSOTROS
+       ============================================================ */
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: clamp(2.5rem, 6vw, 5rem);
+    }
+    .about__media { position: relative; padding: 0 1.4rem 2.2rem 0; }
+    .about__media::before {
+      content: "";
+      position: absolute;
+      top: -16px;
+      left: -16px;
+      width: 58%;
+      height: 62%;
+      border: 1px solid rgba(184, 137, 74, 0.5);
+      border-radius: 30px;
+      pointer-events: none;
+    }
+    .about__img-main {
+      width: 100%;
+      aspect-ratio: 4 / 3.4;
+      object-fit: cover;
+      border-radius: 28px;
+      box-shadow: var(--shadow-md);
+    }
+    .about__img-small {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 44%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border: 6px solid var(--cream);
+      border-radius: 20px;
+      box-shadow: 0 24px 44px -20px rgba(42, 20, 38, 0.45);
+    }
+    .about__badge {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: 999px;
+      background: rgba(42, 20, 38, 0.82);
+      color: var(--white);
+      font-size: 0.64rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .about__badge svg { width: 13px; height: 13px; color: var(--gold-light); }
+    .about__copy h2 {
+      margin-bottom: 1rem;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.4vw, 3.25rem);
+      line-height: 1.12;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .about__copy p { margin-bottom: 1rem; color: var(--muted); }
+    .about__copy > p:first-of-type { font-size: 1.04rem; color: var(--ink); }
+
+    .checklist { display: grid; gap: 0.9rem; margin: 1.6rem 0; }
+    .checklist li { display: flex; align-items: flex-start; gap: 0.7rem; }
+    .checklist svg { width: 20px; height: 20px; flex: 0 0 auto; margin-top: 0.16rem; color: var(--gold); }
+    .checklist strong { display: block; font-size: 0.92rem; font-weight: 800; color: var(--ink); }
+    .checklist span { display: block; font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+
+    .about__quote {
+      margin-top: 1.6rem;
+      padding: 1rem 1.2rem;
+      border-left: 3px solid var(--gold);
+      border-radius: 0 14px 14px 0;
+      background: rgba(184, 137, 74, 0.08);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--wine);
+    }
+
+    /* ============================================================
+       7. SERVICIOS
+       ============================================================ */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: clamp(1rem, 2.2vw, 1.6rem);
+    }
+    .service-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--cream);
+      box-shadow: 0 6px 20px rgba(42, 20, 38, 0.04);
+      transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+    }
+    .service-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(184, 137, 74, 0.55);
+      box-shadow: var(--shadow-md);
+    }
+    .service-card__media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--cream-2); }
+    .service-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s var(--ease);
+    }
+    .service-card:hover .service-card__media img { transform: scale(1.06); }
+    .service-card__media::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 60%;
+      background: linear-gradient(to top, rgba(42, 20, 38, 0.5), transparent);
+      pointer-events: none;
+    }
+    .service-card__num {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--wine);
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow: 0 6px 16px rgba(42, 20, 38, 0.18);
+    }
+    .service-card__body { display: flex; flex: 1; flex-direction: column; padding: 1.4rem 1.4rem 1.5rem; }
+    .service-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.55rem;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    .service-card h3 svg { width: 20px; height: 20px; color: var(--gold); }
+    .service-card p { flex: 1; margin-bottom: 1rem; font-size: 0.89rem; line-height: 1.65; color: var(--muted); }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.15rem; }
+    .tags span {
+      padding: 0.24rem 0.6rem;
+      border: 1px solid rgba(122, 33, 65, 0.14);
+      border-radius: 999px;
+      background: var(--white);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--wine);
+    }
+
+    /* ============================================================
+       8. ¿POR QUÉ ELEGIRNOS?
+       ============================================================ */
+    .advantages-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .advantage {
+      flex: 1 1 240px;
+      max-width: 300px;
+      padding: 1.5rem 1.35rem;
+      border: 1px solid var(--line-light);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.045);
+      transition: transform 0.3s var(--ease), background-color 0.3s ease, border-color 0.3s ease;
+    }
+    .advantage:hover {
+      transform: translateY(-5px);
+      border-color: rgba(230, 205, 156, 0.45);
+      background: rgba(230, 205, 156, 0.07);
+    }
+    .advantage__icon {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      margin-bottom: 1rem;
+      border-radius: 14px;
+      background: rgba(230, 205, 156, 0.14);
+      color: var(--gold-light);
+    }
+    .advantage__icon svg { width: 22px; height: 22px; }
+    .advantage h3 { margin-bottom: 0.4rem; font-size: 0.98rem; font-weight: 800; color: var(--white); }
+    .advantage p { font-size: 0.83rem; line-height: 1.6; color: rgba(251, 247, 241, 0.65); }
+
+    /* ============================================================
+       9. MISIÓN, VISIÓN Y OBJETIVOS
+       ============================================================ */
+    .mv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: clamp(1rem, 2.2vw, 1.5rem);
+    }
+    .mv-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: clamp(1.6rem, 3vw, 2.2rem);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+    .mv-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .mv-card__icon {
+      display: grid;
+      place-items: center;
+      width: 50px;
+      height: 50px;
+      margin-bottom: 1.2rem;
+      border-radius: 16px;
+      background: rgba(122, 33, 65, 0.08);
+      color: var(--wine);
+    }
+    .mv-card__icon svg { width: 24px; height: 24px; }
+    .mv-card__label {
+      margin-bottom: 0.5rem;
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .mv-card h3 { margin-bottom: 0.7rem; font-family: var(--font-display); font-size: 1.5rem; line-height: 1.2; color: var(--ink); }
+    .mv-card p { font-size: 0.9rem; line-height: 1.7; color: var(--muted); }
+    .mv-card--featured {
+      border-color: rgba(230, 205, 156, 0.35);
+      background: linear-gradient(150deg, var(--ink) 0%, var(--ink-2) 60%, #4a1a2c 100%);
+      box-shadow: 0 30px 60px -30px rgba(42, 20, 38, 0.65);
+    }
+    .mv-card--featured .mv-card__icon { background: rgba(230, 205, 156, 0.14); color: var(--gold-light); }
+    .mv-card--featured h3 { color: var(--white); }
+    .mv-card--featured p { color: rgba(251, 247, 241, 0.76); }
+
+    .objectives {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      align-items: center;
+      gap: clamp(1.5rem, 4vw, 3rem);
+      margin-top: clamp(1.2rem, 2.5vw, 1.6rem);
+      padding: clamp(1.6rem, 3.5vw, 2.6rem);
+      border: 1px solid rgba(184, 137, 74, 0.35);
+      border-radius: 26px;
+      background:
+        radial-gradient(500px 260px at 100% 0%, rgba(184, 137, 74, 0.14), transparent 70%),
+        linear-gradient(135deg, #fffdf9, var(--cream-2));
+    }
+    .objectives h3 {
+      margin-bottom: 0.6rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.6vw, 2rem);
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    .objectives__intro p { font-size: 0.9rem; color: var(--muted); }
+    .objectives__list { display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem 1.2rem; }
+    .objectives__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: var(--ink-2);
+    }
+    .objectives__list svg { width: 17px; height: 17px; flex: 0 0 auto; margin-top: 0.15rem; color: var(--gold); }
+
+    /* ============================================================
+       10. EVENTOS Y GALERÍA
+       ============================================================ */
+    .event-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 0.8rem;
+    }
+    .event-type {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--white);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--ink);
+      transition: transform 0.25s var(--ease), border-color 0.25s ease, background-color 0.25s ease;
+    }
+    .event-type:hover { transform: translateY(-3px); border-color: rgba(184, 137, 74, 0.5); background: #fffdf9; }
+    .event-type__icon {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      border-radius: 10px;
+      background: rgba(122, 33, 65, 0.07);
+      color: var(--wine);
+    }
+    .event-type__icon svg { width: 17px; height: 17px; }
+
+    .gallery {
+      columns: 3;
+      column-gap: clamp(0.75rem, 1.6vw, 1.1rem);
+      margin-top: clamp(2rem, 4vw, 2.8rem);
+    }
+    .gallery figure {
+      position: relative;
+      break-inside: avoid;
+      margin: 0 0 clamp(0.75rem, 1.6vw, 1.1rem);
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--cream-2);
+      box-shadow: var(--shadow-sm);
+    }
+    .gallery img { width: 100%; height: auto; transition: transform 0.7s var(--ease); }
+    .gallery figure:hover img { transform: scale(1.04); }
+    .gallery figcaption {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 2.4rem 1rem 0.85rem;
+      background: linear-gradient(to top, rgba(42, 20, 38, 0.82), transparent);
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    /* ============================================================
+       11. PROCESO
+       ============================================================ */
+    .process-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(1rem, 2.4vw, 1.8rem);
+    }
+    .process-grid::before {
+      content: "";
+      position: absolute;
+      top: 32px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: repeating-linear-gradient(90deg, rgba(184, 137, 74, 0.55) 0 8px, transparent 8px 16px);
+    }
+    .step { position: relative; }
+    .step__num {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1.2rem;
+      border: 6px solid var(--white);
+      border-radius: 50%;
+      background: var(--wine);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 600;
+      box-shadow: 0 12px 24px -14px rgba(122, 33, 65, 0.7);
+    }
+    .step h3 { margin-bottom: 0.4rem; font-family: var(--font-display); font-size: 1.2rem; line-height: 1.25; color: var(--ink); }
+    .step p { font-size: 0.84rem; line-height: 1.65; color: var(--muted); }
+
+    /* ============================================================
+       12. LLAMADO A LA ACCIÓN
+       ============================================================ */
+    .cta-section {
+      padding-block: clamp(3rem, 6vw, 5rem);
+      background: var(--cream);
+      scroll-margin-top: calc(var(--header-h) + 18px);
+    }
+    .cta-panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(2.6rem, 6vw, 4.8rem) clamp(1.4rem, 4vw, 3rem);
+      border-radius: 30px;
+      background:
+        linear-gradient(115deg, rgba(30, 12, 28, 0.94) 12%, rgba(74, 22, 42, 0.82) 58%, rgba(30, 12, 28, 0.72) 100%),
+        url("platos%20decorados.jpg") center / cover no-repeat;
+      text-align: center;
+      color: var(--white);
+      box-shadow: var(--shadow-md);
+      border: 1px solid rgba(230, 205, 156, 0.3);
+    }
+    .cta-panel::before {
+      content: "";
+      position: absolute;
+      inset: 14px;
+      border: 1px solid rgba(230, 205, 156, 0.22);
+      border-radius: 22px;
+      pointer-events: none;
+    }
+    .cta-panel > * { position: relative; z-index: 1; }
+    .cta-panel .eyebrow { justify-content: center; color: var(--gold-light); }
+    .cta-panel h2 {
+      max-width: 22ch;
+      margin-inline: auto;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.8vw, 3.4rem);
+      line-height: 1.1;
+      text-wrap: balance;
+    }
+    .cta-panel p {
+      max-width: 58ch;
+      margin: 1rem auto 0;
+      color: rgba(251, 247, 241, 0.76);
+      font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+    }
+    .cta-panel__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin-top: 1.8rem; }
+    .cta-panel__note {
+      margin-top: 1.1rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(230, 205, 156, 0.8);
+    }
+
+    /* ============================================================
+       13. CONTACTO Y FORMULARIO
+       ============================================================ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.88fr 1.12fr;
+      align-items: start;
+      gap: clamp(1.5rem, 3.5vw, 2.5rem);
+    }
+    .contact-panel {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(1.8rem, 3.5vw, 2.6rem);
+      border-radius: 28px;
+      background: linear-gradient(155deg, var(--ink) 0%, var(--ink-2) 72%, #512033 100%);
+      color: var(--cream);
+      box-shadow: var(--shadow-md);
+    }
+    .contact-panel::after {
+      content: "";
+      position: absolute;
+      top: -90px;
+      right: -90px;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(230, 205, 156, 0.2), transparent 70%);
+      pointer-events: none;
+    }
+    .contact-panel > * { position: relative; z-index: 1; }
+    .contact-panel h3 {
+      margin-bottom: 0.6rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      line-height: 1.15;
+    }
+    .contact-panel > p { margin-bottom: 1.4rem; font-size: 0.9rem; color: rgba(251, 247, 241, 0.68); }
+
+    .contact-list { display: grid; margin-bottom: 1.5rem; }
+    .contact-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .contact-list li:last-child { border-bottom: 0; }
+    .contact-list__icon {
+      display: grid;
+      place-items: center;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      background: rgba(230, 205, 156, 0.12);
+      color: var(--gold-light);
+    }
+    .contact-list__icon svg { width: 18px; height: 18px; }
+    .contact-list small {
+      display: block;
+      margin-bottom: 0.12rem;
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(230, 205, 156, 0.75);
+    }
+    .contact-list strong,
+    .contact-list a {
+      display: block;
+      font-size: 0.86rem;
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--white);
+      overflow-wrap: anywhere;
+      transition: color 0.2s ease;
+    }
+    .contact-list a:hover { color: var(--gold-light); }
+
+    .socials { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem; }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--cream);
+      transition: border-color 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+    }
+    .social-link svg { width: 15px; height: 15px; }
+    .social-link:hover {
+      border-color: var(--gold-light);
+      background: rgba(230, 205, 156, 0.08);
+      color: var(--gold-light);
+    }
+    .contact-note {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-top: 0.95rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.76rem;
+      color: rgba(251, 247, 241, 0.6);
+    }
+    .contact-note svg { width: 16px; height: 16px; color: var(--gold-light); }
+
+    .form-card {
+      padding: clamp(1.5rem, 3.2vw, 2.4rem);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    .form-card h3 {
+      margin-bottom: 0.35rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2.8vw, 1.95rem);
+      color: var(--ink);
+    }
+    .form-card > p { margin-bottom: 1.4rem; font-size: 0.86rem; color: var(--muted); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field { display: flex; flex-direction: column; }
+    .field--full { grid-column: 1 / -1; }
+    .field label {
+      margin-bottom: 0.4rem;
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+    .field label .required { color: var(--wine); }
+    .field label .optional { font-weight: 600; color: var(--muted); }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 0.78rem 0.9rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fdfbf8;
+      font-size: 0.87rem;
+      color: var(--ink);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+    .field input::placeholder,
+    .field textarea::placeholder { color: #a796a0; }
+    .field input:hover,
+    .field select:hover,
+    .field textarea:hover { border-color: rgba(122, 33, 65, 0.28); }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: var(--white);
+      box-shadow: 0 0 0 4px rgba(184, 137, 74, 0.16);
+    }
+    .field textarea { min-height: 110px; resize: vertical; }
+
+    .field.has-error input,
+    .field.has-error select,
+    .field.has-error textarea {
+      border-color: #b3261e;
+      background: #fff8f7;
+      box-shadow: 0 0 0 4px rgba(179, 38, 30, 0.08);
+    }
+    .field__error {
+      display: none;
+      margin-top: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #b3261e;
+    }
+    .field.has-error .field__error { display: block; }
+
+    .form-actions { display: flex; flex-direction: column; gap: 0.65rem; margin-top: 0.3rem; }
+    .form-actions .btn { width: 100%; }
+    .form-note { font-size: 0.7rem; line-height: 1.5; color: var(--muted); text-align: center; }
+
+    .form-success {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      margin-bottom: 1.3rem;
+      padding: 1.1rem;
+      border: 1px solid rgba(31, 122, 71, 0.28);
+      border-radius: 16px;
+      background: #f2faf4;
+    }
+    .form-success[hidden] { display: none; }
+    .form-success__icon {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: #1f7a47;
+      color: var(--white);
+    }
+    .form-success__icon svg { width: 19px; height: 19px; }
+    .form-success h4 { margin-bottom: 0.2rem; font-size: 0.95rem; color: #155c35; }
+    .form-success p { font-size: 0.8rem; line-height: 1.5; color: #2f6a49; }
+    .form-success__actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.7rem; }
+
+    /* ============================================================
+       14. FOOTER
+       ============================================================ */
+    .site-footer {
+      background: #1c0d19;
+      color: rgba(251, 247, 241, 0.7);
+      padding-top: clamp(3rem, 6vw, 4.5rem);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+      gap: clamp(1.8rem, 4vw, 3rem);
+      padding-bottom: 2.5rem;
+    }
+    .footer-brand .brand__logo { width: 52px; height: 52px; border-color: rgba(230, 205, 156, 0.3); }
+    .footer-brand .brand__text strong { color: var(--white); }
+    .footer-brand > p {
+      max-width: 34ch;
+      margin-top: 1rem;
+      font-size: 0.84rem;
+      line-height: 1.7;
+      color: rgba(251, 247, 241, 0.58);
+    }
+    .footer-brand .socials { margin-top: 1.1rem; margin-bottom: 0; }
+    .footer-col h4 {
+      margin-bottom: 1rem;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+    .footer-col ul { display: grid; gap: 0.55rem; }
+    .footer-col a {
+      font-size: 0.84rem;
+      color: rgba(251, 247, 241, 0.66);
+      transition: color 0.2s ease;
+      overflow-wrap: anywhere;
+    }
+    .footer-col a:hover { color: var(--gold-light); }
+    .footer-col address {
+      font-style: normal;
+      font-size: 0.84rem;
+      line-height: 1.7;
+      color: rgba(251, 247, 241, 0.66);
+    }
+    .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.7rem;
+      padding-block: 1.4rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.09);
+      font-size: 0.72rem;
+      color: rgba(251, 247, 241, 0.45);
+    }
+    .footer-bottom p { margin: 0; }
+
+    /* ============================================================
+       15. BOTÓN VOLVER ARRIBA
+       ============================================================ */
+    .to-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 90;
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--wine);
+      color: var(--white);
+      box-shadow: 0 14px 30px -12px rgba(42, 20, 38, 0.7);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: opacity 0.25s ease, transform 0.25s var(--ease), visibility 0.25s ease, background-color 0.25s ease;
+    }
+    .to-top svg { width: 20px; height: 20px; }
+    .to-top:hover { background: var(--wine-dark); transform: translateY(-3px); }
+    .to-top.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+
+    /* ============================================================
+       16. ANIMACIONES AL HACER SCROLL
+       ============================================================ */
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.75s ease, transform 0.75s var(--ease);
+      transition-delay: var(--d, 0s);
+    }
+    .js .reveal.is-visible { opacity: 1; transform: none; }
+
+    /* ============================================================
+       17. RESPONSIVE
+       ============================================================ */
+    @media (max-width: 1080px) {
+      .footer-grid { grid-template-columns: 1.4fr 1fr 1.2fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 980px) {
+      :root { --header-h: 70px; }
+
+      .site-header {
+        background: rgba(251, 247, 241, 0.94);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      .nav-toggle { display: inline-flex; }
+      .nav {
+        position: fixed;
+        top: calc(var(--header-h) + 0.45rem);
+        left: 0.85rem;
+        right: 0.85rem;
+        display: block;
+        max-height: calc(100vh - var(--header-h) - 1.4rem);
+        padding: 1rem;
+        overflow-y: auto;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--white);
+        box-shadow: 0 30px 60px -24px rgba(42, 20, 38, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-12px) scale(0.99);
+        transform-origin: top center;
+        transition: opacity 0.25s ease, transform 0.25s var(--ease), visibility 0.25s ease;
+      }
+      .site-header.nav-open .nav { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
+      .nav ul { flex-direction: column; align-items: stretch; gap: 0.12rem; }
+      .nav a:not(.btn) { display: block; padding: 0.78rem 0.9rem; font-size: 0.95rem; border-radius: 12px; }
+      .nav a:not(.btn).is-active { background: rgba(122, 33, 65, 0.08); }
+      .nav__cta { width: 100%; margin: 0.7rem 0 0; }
+
+      .hero { min-height: auto; }
+      .hero__grid { grid-template-columns: 1fr; gap: clamp(2.5rem, 7vw, 3.5rem); }
+      .hero__copy { text-align: center; }
+      .hero__tagline, .hero__lead { margin-inline: auto; }
+      .hero__actions, .hero__stats { justify-content: center; }
+      .hero h1::after { margin-inline: auto; }
+      .hero__media { max-width: 420px; }
+      .hero__float { left: 0; bottom: 24px; }
+      .hero__badge { right: 0; }
+      .hero__scroll { display: none; }
+
+      .about__grid { grid-template-columns: 1fr; }
+      .about__copy { order: -1; }
+      .about__media { max-width: 560px; margin-inline: auto; width: 100%; }
+
+      .objectives { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr 1fr; }
+      .process-grid::before { display: none; }
+
+      .contact-grid { grid-template-columns: 1fr; }
+      .contact-panel { order: 2; }
+      .form-card { order: 1; }
+    }
+
+    @media (max-width: 820px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+      .gallery { columns: 2; }
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: clamp(3.1rem, 17vw, 4.6rem); }
+      .hero__actions .btn { flex: 1 1 100%; }
+      .hero__stats { gap: 1.2rem 2rem; }
+
+      .process-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+      .step { display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 1rem; }
+      .step__num { width: 54px; height: 54px; margin: 0; font-size: 1.05rem; border-width: 5px; }
+      .step h3 { margin-top: 0.2rem; }
+      .step p { grid-column: 2; margin-top: -0.5rem; }
+
+      .form-grid { grid-template-columns: 1fr; }
+      .field--full { grid-column: auto; }
+      .objectives__list { grid-template-columns: 1fr; }
+      .cta-panel__actions .btn { width: 100%; }
+      .about__media { padding: 0 0.9rem 1.8rem 0; }
+      .about__img-small { width: 46%; }
+      .hero__float { max-width: 210px; padding: 0.65rem 0.75rem; }
+      .hero__ring { display: none; }
+
+      .to-top { right: 16px; bottom: 16px; width: 44px; height: 44px; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery { columns: 1; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-brand { grid-column: auto; }
+      .hero__stats { justify-content: flex-start; text-align: left; }
+      .hero__copy { text-align: left; }
+      .hero__tagline, .hero__lead { margin-inline: 0; }
+      .hero h1::after { margin-inline: 0; }
+      .hero__actions, .hero__stats { justify-content: flex-start; }
+      .hero__badge { font-size: 0.58rem; padding: 0.45rem 0.7rem; }
+      .hero__float small { display: none; }
+      .brand__text small { letter-spacing: 0.16em; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .js .reveal { opacity: 1; transform: none; }
+      .marquee__track { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#inicio">Saltar al contenido</a>
+
+  <!-- ============================================================
+       HEADER / NAVBAR
+       ============================================================ -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-wrap">
+      <a class="brand" href="#inicio" aria-label="EVENTECH, ir al inicio">
+        <img class="brand__logo" src="eventech%20logo.png" alt="Logo de EVENTECH" width="435" height="436">
+        <span class="brand__text">
+          <strong>EVENTECH</strong>
+          <small>Catering &amp; eventos</small>
+        </span>
+      </a>
+
+      <nav class="nav" id="primaryNav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#mision">Misión y visión</a></li>
+          <li><a href="#eventos">Eventos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <a class="btn btn--primary btn--sm nav__cta" href="#contacto">Cotiza tu evento</a>
+      </nav>
+
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false"
+        aria-controls="primaryNav" aria-label="Abrir menú de navegación">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============================================================
+         HERO / PORTADA
+         ============================================================ -->
+    <section class="hero" id="inicio" aria-labelledby="heroTitle">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <span class="eyebrow">Catering &amp; organización integral de eventos</span>
+          <h1 id="heroTitle">EVENTECH</h1>
+          <p class="hero__tagline">“Lo que otros sueñan, nuestras manos lo diseñan”</p>
+          <p class="hero__lead">
+            Catering, decoración, música, entretenimiento y logística en un solo equipo.
+            Tú disfrutas la celebración; nosotros hacemos que cada detalle suceda.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#contacto">
+              Cotiza tu evento
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6"/>
+              </svg>
+            </a>
+            <a class="btn btn--ghost" href="#servicios">Conoce nuestros servicios</a>
+          </div>
+          <div class="hero__stats" aria-label="Datos de EVENTECH">
+            <div class="hero__stat"><strong>360°</strong><span>Servicio integral</span></div>
+            <div class="hero__stat"><strong>7</strong><span>Tipos de eventos</span></div>
+            <div class="hero__stat"><strong>1</strong><span>Equipo para todo</span></div>
+          </div>
+        </div>
+
+        <div class="hero__media">
+          <span class="hero__ring" aria-hidden="true"></span>
+          <figure class="hero__figure">
+            <img src="arriba.jpg" alt="Ambientación y decoración de una celebración organizada por EVENTECH"
+              width="1024" height="1536" fetchpriority="high" decoding="async">
+          </figure>
+          <span class="hero__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/>
+              <circle cx="12" cy="10" r="2.5"/>
+            </svg>
+            Venecia · Sur de Bogotá
+          </span>
+          <div class="hero__float">
+            <span class="hero__float-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3l1.7 5.1L19 9.8l-5.3 1.7L12 16.6l-1.7-5.1L5 9.8l5.3-1.7L12 3Z"/>
+                <path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"/>
+              </svg>
+            </span>
+            <span>
+              <strong>Todo en un solo lugar</strong>
+              <small>Catering · Decoración · Música</small>
+            </span>
+          </div>
+        </div>
+      </div>
+      <span class="hero__scroll">Descubre más</span>
+    </section>
+
+    <!-- Cinta con los servicios principales -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <div class="marquee__group">
+          <span>Catering</span><span>Decoración</span><span>Música &amp; DJ</span>
+          <span>Entretenimiento</span><span>Logística</span><span>Eventos 360°</span>
+        </div>
+        <div class="marquee__group">
+          <span>Catering</span><span>Decoración</span><span>Música &amp; DJ</span>
+          <span>Entretenimiento</span><span>Logística</span><span>Eventos 360°</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         ¿QUIÉNES SOMOS?
+         ============================================================ -->
+    <section class="section" id="nosotros" aria-labelledby="aboutTitle">
+      <div class="container about__grid">
+        <div class="about__media reveal">
+          <img class="about__img-main" src="mesas.jpg"
+            alt="Mesas decoradas y ambientación de un evento" width="1200" height="1157"
+            loading="lazy" decoding="async">
+          <span class="about__badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3l1.7 5.1L19 9.8l-5.3 1.7L12 16.6l-1.7-5.1L5 9.8l5.3-1.7L12 3Z"/>
+            </svg>
+            Eventos con alma
+          </span>
+          <img class="about__img-small" src="comida%202%20postres.jpg"
+            alt="Postres y detalles de catering para eventos" width="1179" height="1354"
+            loading="lazy" decoding="async">
+        </div>
+
+        <div class="about__copy reveal" style="--d:.12s">
+          <span class="eyebrow">¿Quiénes somos?</span>
+          <h2 id="aboutTitle">Una sola empresa para todo tu evento</h2>
+          <p>
+            EVENTECH es una empresa especializada en la organización integral de eventos
+            sociales y empresariales en el sur de Bogotá. Creamos celebraciones completas
+            combinando catering, decoración temática, ambientación musical, entretenimiento
+            y coordinación logística.
+          </p>
+          <p>
+            Nuestro diferencial es simple: no necesitas contratar diferentes proveedores.
+            Nosotros podemos encargarnos de múltiples aspectos del evento para que tú
+            disfrutes de la celebración sin preocuparte por la organización.
+          </p>
+          <ul class="checklist">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+              <div><strong>Sin múltiples proveedores</strong><span>Un solo equipo coordina todo para ti.</span></div>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+              <div><strong>Experiencia 360°</strong><span>Comida, decoración, música y logística integradas.</span></div>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"/>
+              </svg>
+              <div><strong>Cercanía local</strong><span>Atendemos Venecia y sus alrededores con trato humano.</span></div>
+            </li>
+          </ul>
+          <p class="about__quote">“Tú celebras. Nosotros nos encargamos del resto.”</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SERVICIOS
+         ============================================================ -->
+    <section class="section section--white" id="servicios" aria-labelledby="servicesTitle">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="eyebrow">Nuestros servicios</span>
+          <h2 id="servicesTitle">Todo lo que tu evento necesita, en un solo lugar</h2>
+          <p>
+            Diseñamos experiencias completas. Elige un servicio o combínalos todos:
+            nosotros nos encargamos de que cada pieza encaje perfectamente.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <!-- 01 · Catering -->
+          <article class="service-card reveal">
+            <div class="service-card__media">
+              <img src="comida1.jpg" alt="Plato de catering preparado para un evento" width="720" height="1212" loading="lazy" decoding="async">
+              <span class="service-card__num">01</span>
+            </div>
+            <div class="service-card__body">
+              <h3>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 3v18M4 3v5a3 3 0 0 0 6 0V3M17 3c-1.7 0-3 2.2-3 5s1.3 5 3 5v8"/>
+                </svg>
+                Catering
+              </h3>
+              <p>Alimentación para eventos con menús adaptables a tus gustos, número de invitados y presupuesto. Sabores que se vuelven parte de la celebración.</p>
+              <div class="tags"><span>Menús a medida</span><span>Pasabocas</span><span>Postres</span></div>
+              <a class="text-link" href="#contacto">Cotizar este servicio
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- 02 · Decoración -->
+          <article class="service-card reveal" style="--d:.08s">
+            <div class="service-card__media">
+              <img src="platos%20decorados.jpg" alt="Detalles decorados de mesa para una celebración" width="736" height="1308" loading="lazy" decoding="async">
+              <span class="service-card__num">02</span>
+            </div>
+            <div class="service-card__body">
+              <h3>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 3a9 9 0 1 0 0 18h1.5a2.5 2.5 0 0 0 0-5H12a2 2 0 0 1 0-4h5a4 4 0 0 0 4-4c0-2.8-4-5-9-5Z"/>
+                  <circle cx="7.5" cy="10" r=".8"/><circle cx="10" cy="6.8" r=".8"/><circle cx="14.5" cy="6.5" r=".8"/>
+                </svg>
+                Decoración
+              </h3>
+              <p>Decoración temática y ambientación personalizada que transforma el espacio y hace que tu evento se sienta único desde el primer vistazo.</p>
+              <div class="tags"><span>Temáticas</span><span>Ambientación</span><span>Detalles</span></div>
+              <a class="text-link" href="#contacto">Cotizar este servicio
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- 03 · DJ y música -->
+          <article class="service-card reveal" style="--d:.16s">
+            <div class="service-card__media">
+              <img src="dj%20image.jpg" alt="Cabina de DJ y ambientación musical para eventos" width="736" height="920" loading="lazy" decoding="async">
+              <span class="service-card__num">03</span>
+            </div>
+            <div class="service-card__body">
+              <h3>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+                </svg>
+                DJ y música
+              </h3>
+              <p>Música según el tipo de evento, con ambientación musical cuidada para cada momento: desde la entrada hasta el último baile.</p>
+              <div class="tags"><span>DJ</span><span>Playlist</span><span>Sonido</span></div>
+              <a class="text-link" href="#contacto">Cotizar este servicio
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- 04 · Entretenimiento -->
+          <article class="service-card reveal">
+            <div class="service-card__media">
+              <img src="saltaril%20ni%C3%B1os.jpg" alt="Entretenimiento y juegos para niños en un evento" width="736" height="915" loading="lazy" decoding="async">
+              <span class="service-card__num">04</span>
+            </div>
+            <div class="service-card__body">
+              <h3>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4L12 2Z"/>
+                  <path d="M19 17l.6 1.4L21 19l-1.4.6L19 21l-.6-1.4L17 19l1.4-.6L19 17Z"/>
+                </svg>
+                Entretenimiento
+              </h3>
+              <p>Actividades, dinámicas y entretenimiento para que tus invitados participen, se diviertan y se lleven un recuerdo especial.</p>
+              <div class="tags"><span>Dinámicas</span><span>Juegos</span><span>Animación</span></div>
+              <a class="text-link" href="#contacto">Cotizar este servicio
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- 05 · Organización y logística -->
+          <article class="service-card reveal" style="--d:.08s">
+            <div class="service-card__media">
+              <img src="mesas.jpg" alt="Montaje y organización logística de mesas para un evento" width="1200" height="1157" loading="lazy" decoding="async">
+              <span class="service-card__num">05</span>
+            </div>
+            <div class="service-card__body">
+              <h3>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="5" y="4" width="14" height="17" rx="2"/>
+                  <path d="M9 4V3h6v1M9 9h6M9 13h6M9 17h4"/>
+                </svg>
+                Organización y logística
+              </h3>
+              <p>Planeación, coordinación y supervisión del evento para que todo fluya. Nosotros gestionamos los detalles, los tiempos y el montaje.</p>
+              <div class="tags"><span>Planeación</span><span>Coordinación</span><span>Supervisión</span></div>
+              <a class="text-link" href="#contacto">Cotizar este servicio
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- 06 · Eventos personalizados -->
+          <article class="service-card reveal" style="--d:.16s">
+            <div class="service-card__media">
+              <img src="regalos.jpg" alt="Detalles y regalos personalizados para invitados de un evento" width="525" height="789" loading="lazy" decoding="async">
+              <span class="service-card__num">06</span>
+            </div>
+            <div class="service-card__body">
+              <h3>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m15 4 5 5M13.5 5.5 4 15l5 5L18.5 10.5M6 4v3M4.5 5.5h3M18 17v3M16.5 18.5h3"/>
+                </svg>
+                Eventos personalizados
+              </h3>
+              <p>Soluciones adaptadas a las necesidades y presupuesto de cada cliente. Diseñamos la experiencia que imaginas, a tu medida.</p>
+              <div class="tags"><span>A tu medida</span><span>Presupuesto</span><span>360°</span></div>
+              <a class="text-link" href="#contacto">Cotizar este servicio
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ¿POR QUÉ ELEGIRNOS?
+         ============================================================ -->
+    <section class="section section--dark" id="ventajas" aria-labelledby="whyTitle">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="eyebrow">¿Por qué elegirnos?</span>
+          <h2 id="whyTitle">Más que un proveedor, un aliado para tu celebración</h2>
+          <p>
+            Nos involucramos en cada etapa para que tu única tarea sea disfrutar.
+            Estas son las razones por las que las familias, colegios y empresas confían en nosotros.
+          </p>
+        </div>
+
+        <div class="advantages-grid">
+          <article class="advantage reveal">
+            <div class="advantage__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg>
+            </div>
+            <h3>Todo en un solo lugar</h3>
+            <p>Catering, decoración, música, entretenimiento y logística con un solo equipo.</p>
+          </article>
+
+          <article class="advantage reveal" style="--d:.06s">
+            <div class="advantage__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.5a2.5 2.5 0 0 0 0-5H12a2 2 0 0 1 0-4h5a4 4 0 0 0 4-4c0-2.8-4-5-9-5Z"/><circle cx="7.5" cy="10" r=".8"/><circle cx="10" cy="6.8" r=".8"/><circle cx="14.5" cy="6.5" r=".8"/></svg>
+            </div>
+            <h3>Eventos personalizados</h3>
+            <p>Cada celebración se diseña según tu estilo, tus invitados y tu presupuesto.</p>
+          </article>
+
+          <article class="advantage reveal" style="--d:.12s">
+            <div class="advantage__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+            </div>
+            <h3>Atención cercana</h3>
+            <p>Te acompañamos de principio a fin con comunicación clara y trato humano.</p>
+          </article>
+
+          <article class="advantage reveal" style="--d:.18s">
+            <div class="advantage__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M16 14h2"/></svg>
+            </div>
+            <h3>Soluciones para diferentes presupuestos</h3>
+            <p>Paquetes flexibles que se adaptan a lo que necesitas invertir.</p>
+          </article>
+
+          <article class="advantage reveal">
+            <div class="advantage__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 7.8-8 9-4.6-1.2-8-4-8-9V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <h3>Organización profesional</h3>
+            <p>Planeación, coordinación y supervisión para que nada se escape.</p>
+          </article>
+
+          <article class="advantage reveal" style="--d:.06s">
+            <div class="advantage__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </div>
+            <h3>Ahorro de tiempo</h3>
+            <p>Deja de coordinar múltiples proveedores y recupera tu tiempo.</p>
+          </article>
+
+          <article class="advantage reveal" style="--d:.12s">
+            <div class="advantage__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4L12 2Z"/></svg>
+            </div>
+            <h3>Experiencias memorables</h3>
+            <p>Creamos momentos que tus invitados recordarán mucho después.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         MISIÓN, VISIÓN Y OBJETIVOS
+         ============================================================ -->
+    <section class="section" id="mision" aria-labelledby="missionTitle">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="eyebrow">Nuestra esencia</span>
+          <h2 id="missionTitle">Misión, visión y objetivos</h2>
+          <p>
+            Una idea clara: transformar espacios comunes en experiencias especiales,
+            con un servicio cercano, organizado y creativo.
+          </p>
+        </div>
+
+        <div class="mv-grid">
+          <article class="mv-card reveal">
+            <div class="mv-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+            </div>
+            <span class="mv-card__label">Misión</span>
+            <h3>Crear experiencias, no solo eventos</h3>
+            <p>
+              Ofrecer un servicio integral de catering y organización de eventos que combine
+              comida de calidad, decoración temática, ambientación musical, entretenimiento y
+              coordinación logística, creando experiencias personalizadas y memorables.
+            </p>
+            <p style="margin-top:.7rem">
+              Permitimos que nuestros clientes disfruten plenamente de sus celebraciones sin
+              preocuparse por los detalles, y creamos espacios que fomentan la conexión humana,
+              la celebración y el encuentro en la comunidad de Venecia y sus alrededores.
+            </p>
+          </article>
+
+          <article class="mv-card mv-card--featured reveal" style="--d:.1s">
+            <div class="mv-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <span class="mv-card__label">Visión 2027</span>
+            <h3>Ser referentes en el sur de Bogotá</h3>
+            <p>
+              Para el año 2027, convertirnos en uno de los servicios de catering y organización
+              de eventos 360° más reconocidos del sur de Bogotá, destacándonos por transformar
+              cada celebración en una experiencia memorable, innovadora, personalizada y accesible.
+            </p>
+            <p style="margin-top:.7rem">
+              Queremos ser una de las primeras opciones para colegios, familias y pequeñas
+              empresas de Tunjuelito y localidades cercanas como Usme, Rafael Uribe Uribe y Bosa.
+            </p>
+          </article>
+
+          <article class="mv-card reveal" style="--d:.2s">
+            <div class="mv-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m16 8-2.5 5.5L8 16l2.5-5.5L16 8Z"/></svg>
+            </div>
+            <span class="mv-card__label">Objetivo general</span>
+            <h3>Una solución completa en un solo lugar</h3>
+            <p>
+              Brindar un servicio integral de organización de eventos que permita a nuestros
+              clientes encontrar en un solo lugar todas las soluciones necesarias para realizar
+              una celebración exitosa.
+            </p>
+            <p style="margin-top:.7rem">
+              Nos encargamos de cada etapa, desde la planeación y decoración hasta el catering,
+              la música, el entretenimiento y la logística, adaptando cada celebración al
+              presupuesto, necesidades y preferencias del cliente.
+            </p>
+          </article>
+        </div>
+
+        <div class="objectives reveal">
+          <div class="objectives__intro">
+            <span class="eyebrow">Objetivos específicos</span>
+            <h3>Lo que nos proponemos cada día</h3>
+            <p>
+              Trabajamos para que contratar un evento sea sencillo, cercano y confiable,
+              construyendo poco a poco una marca querida en el sur de Bogotá.
+            </p>
+          </div>
+          <ul class="objectives__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Paquetes adaptables a diferentes presupuestos.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Varios servicios contratados en un solo lugar.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Eventos personalizados según la celebración.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Atención cercana y profesional.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Experiencias memorables para los asistentes.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Posicionamiento en el mercado de eventos del sur de Bogotá.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Alianzas con colegios, familias y pequeñas empresas.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Eventos que fortalezcan la conexión entre las personas.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Catering, decoración, música, entretenimiento y logística integrados.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         TIPOS DE EVENTOS Y GALERÍA
+         ============================================================ -->
+    <section class="section section--white" id="eventos" aria-labelledby="eventsTitle">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="eyebrow">Eventos</span>
+          <h2 id="eventsTitle">Celebramos todo aquello que merece recordarse</h2>
+          <p>
+            Desde un cumpleaños íntimo hasta un evento escolar o empresarial.
+            Cada ocasión tiene su propio estilo y nosotros sabemos cómo hacerla brillar.
+          </p>
+        </div>
+
+        <div class="event-types reveal">
+          <div class="event-type">
+            <span class="event-type__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21h16M5 21v-7a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v7M5 14c1.3 0 1.8 1 3.5 1s2.2-1 3.5-1 1.8 1 3.5 1 2.2-1 3.5-1M8 12V9M12 12V9M16 12V9M8 6.5c.8-.8.8-1.7 0-2.5M12 6.5c.8-.8.8-1.7 0-2.5M16 6.5c.8-.8.8-1.7 0-2.5"/></svg>
+            </span>
+            Cumpleaños
+          </div>
+          <div class="event-type">
+            <span class="event-type__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+            </span>
+            Celebraciones familiares
+          </div>
+          <div class="event-type">
+            <span class="event-type__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 9 12 4 2 9l10 5 10-5Z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5M22 9v5"/></svg>
+            </span>
+            Eventos escolares
+          </div>
+          <div class="event-type">
+            <span class="event-type__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg>
+            </span>
+            Eventos empresariales
+          </div>
+          <div class="event-type">
+            <span class="event-type__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 5.3a3.2 3.2 0 0 1 0 6.1M17.5 14.4a6 6 0 0 1 4 5.6"/></svg>
+            </span>
+            Reuniones
+          </div>
+          <div class="event-type">
+            <span class="event-type__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.7 5.1L19 9.8l-5.3 1.7L12 16.6l-1.7-5.1L5 9.8l5.3-1.7L12 3Z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"/></svg>
+            </span>
+            Celebraciones especiales
+          </div>
+          <div class="event-type">
+            <span class="event-type__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l4 3 5-6 5 6 4-3-2 11H5L3 8Z"/><path d="M5 19h14"/></svg>
+            </span>
+            Fiestas temáticas
+          </div>
+        </div>
+
+        <div class="gallery">
+          <figure class="reveal">
+            <img src="mesas.jpg" alt="Montaje de mesas y decoración para una celebración" width="1200" height="1157" loading="lazy" decoding="async">
+            <figcaption>Mesas y ambientación</figcaption>
+          </figure>
+          <figure class="reveal" style="--d:.06s">
+            <img src="infantik%20pasteles.jpg" alt="Pasteles temáticos para fiesta infantil" width="1200" height="2133" loading="lazy" decoding="async">
+            <figcaption>Pasteles temáticos</figcaption>
+          </figure>
+          <figure class="reveal" style="--d:.12s">
+            <img src="comida%202%20postres.jpg" alt="Postres y mesa de catering para eventos" width="1179" height="1354" loading="lazy" decoding="async">
+            <figcaption>Postres y catering</figcaption>
+          </figure>
+          <figure class="reveal" style="--d:.06s">
+            <img src="platos%20decorados.jpg" alt="Platos decorados con detalles elegantes" width="736" height="1308" loading="lazy" decoding="async">
+            <figcaption>Platos decorados</figcaption>
+          </figure>
+          <figure class="reveal" style="--d:.12s">
+            <img src="regalos.jpg" alt="Detalles y regalos para los invitados" width="525" height="789" loading="lazy" decoding="async">
+            <figcaption>Detalles y regalos</figcaption>
+          </figure>
+          <figure class="reveal" style="--d:.18s">
+            <img src="dj%20image.jpg" alt="Ambientación musical y DJ para un evento" width="736" height="920" loading="lazy" decoding="async">
+            <figcaption>Música y DJ</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         NUESTRO PROCESO
+         ============================================================ -->
+    <section class="section section--soft" id="proceso" aria-labelledby="processTitle">
+      <div class="container">
+        <div class="section-head section-head--center reveal">
+          <span class="eyebrow">Nuestro proceso</span>
+          <h2 id="processTitle">Así de fácil es celebrar con nosotros</h2>
+          <p>Cuatro pasos simples para pasar de la idea a una experiencia inolvidable.</p>
+        </div>
+
+        <div class="process-grid">
+          <article class="step reveal">
+            <span class="step__num">1</span>
+            <div>
+              <h3>Cuéntanos tu idea</h3>
+              <p>Nos explicas qué tipo de evento deseas realizar, para quién es y qué tienes en mente.</p>
+            </div>
+          </article>
+          <article class="step reveal" style="--d:.08s">
+            <span class="step__num">2</span>
+            <div>
+              <h3>Diseñamos la propuesta</h3>
+              <p>Definimos servicios, decoración, alimentación, entretenimiento y cada detalle, ajustado a tu presupuesto.</p>
+            </div>
+          </article>
+          <article class="step reveal" style="--d:.16s">
+            <span class="step__num">3</span>
+            <div>
+              <h3>Organizamos todo</h3>
+              <p>Nuestro equipo se encarga de preparar, montar y coordinar el evento de principio a fin.</p>
+            </div>
+          </article>
+          <article class="step reveal" style="--d:.24s">
+            <span class="step__num">4</span>
+            <div>
+              <h3>Tú disfrutas</h3>
+              <p>Llegas, celebras y te llevas los recuerdos. De los detalles nos encargamos nosotros.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LLAMADO A LA ACCIÓN
+         ============================================================ -->
+    <section class="cta-section" id="cotiza" aria-labelledby="ctaTitle">
+      <div class="container">
+        <div class="cta-panel reveal">
+          <span class="eyebrow">Hagamos algo memorable</span>
+          <h2 id="ctaTitle">¿Tienes una celebración en mente?</h2>
+          <p>
+            Nosotros hacemos realidad la experiencia. Cuéntanos qué quieres celebrar
+            y diseñemos juntos tu evento.
+          </p>
+          <div class="cta-panel__actions">
+            <a class="btn btn--gold" href="#contacto">
+              Solicitar cotización
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn--outline-light" href="https://wa.me/573118143694?text=Hola%20EVENTECH%2C%20quiero%20cotizar%20un%20evento." target="_blank" rel="noopener">
+              Hablar por WhatsApp
+            </a>
+          </div>
+          <p class="cta-panel__note">Atención cercana · Propuestas a tu medida · Sin compromiso</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACTO
+         ============================================================ -->
+    <section class="section" id="contacto" aria-labelledby="contactTitle">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Contacto</span>
+          <h2 id="contactTitle">Tu próximo evento empieza con una conversación</h2>
+          <p>
+            Escríbenos, llámanos o cuéntanos tu idea con el formulario.
+            Te ayudaremos a convertirla en una celebración completa.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-panel reveal">
+            <h3>Hablemos de tu celebración</h3>
+            <p>Estamos en el sur de Bogotá, listos para acompañarte en cada detalle.</p>
+
+            <ul class="contact-list">
+              <li>
+                <span class="contact-list__icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                </span>
+                <div>
+                  <small>Dirección</small>
+                  <a href="https://www.google.com/maps/search/?api=1&amp;query=Calle%2045A%20Sur%20%2351D-13%2C%20Bogot%C3%A1%2C%20Colombia" target="_blank" rel="noopener">Calle 45A Sur #51D-13, Bogotá, Colombia</a>
+                </div>
+              </li>
+              <li>
+                <span class="contact-list__icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.69 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.73-.66-1.23-1.47-1.37-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+                </span>
+                <div>
+                  <small>WhatsApp</small>
+                  <a href="https://wa.me/573118143694?text=Hola%20EVENTECH%2C%20quiero%20cotizar%20un%20evento." target="_blank" rel="noopener">+57 311 814 3694</a>
+                </div>
+              </li>
+              <li>
+                <span class="contact-list__icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                </span>
+                <div>
+                  <small>Correo electrónico</small>
+                  <a href="mailto:eventechsas@gmail.com">eventechsas@gmail.com</a>
+                </div>
+              </li>
+              <li>
+                <span class="contact-list__icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9S14.5 18.5 12 21c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3Z"/></svg>
+                </span>
+                <div>
+                  <small>Cobertura</small>
+                  <strong>Venecia, Tunjuelito y sur de Bogotá</strong>
+                </div>
+              </li>
+            </ul>
+
+            <div class="socials">
+              <a class="social-link" href="https://instagram.com/eventec_" target="_blank" rel="noopener" aria-label="Instagram de EVENTECH: eventec_">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor"/></svg>
+                @eventec_
+              </a>
+              <a class="social-link" href="https://facebook.com/eventech_" target="_blank" rel="noopener" aria-label="Facebook de EVENTECH: eventech_">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H7v3h3v6h3v-6h3l1-3h-4v-2c0-.6.4-1 1-1Z"/></svg>
+                eventech_
+              </a>
+            </div>
+
+            <p class="contact-note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              Atención con cita previa · Respuesta personalizada
+            </p>
+          </div>
+
+          <div class="form-card reveal" style="--d:.1s">
+            <h3>Cotiza tu evento</h3>
+            <p>Cuéntanos los detalles y prepararemos una propuesta a tu medida.</p>
+
+            <div class="form-success" id="formSuccess" role="status" aria-live="polite" hidden>
+              <span class="form-success__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              </span>
+              <div>
+                <h4>¡Tu solicitud está lista!</h4>
+                <p id="successText"></p>
+                <div class="form-success__actions">
+                  <a class="btn btn--gold btn--sm" id="successWhatsApp" href="https://wa.me/573118143694" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+                  <button class="btn btn--ghost btn--sm" id="successClose" type="button">Cerrar</button>
+                </div>
+              </div>
+            </div>
+
+            <form id="quoteForm" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="name">Nombre completo <span class="required" aria-hidden="true">*</span></label>
+                  <input id="name" name="name" type="text" autocomplete="name" placeholder="Tu nombre" maxlength="80" aria-describedby="nameError" required>
+                  <p class="field__error" id="nameError">Escribe tu nombre completo (mínimo 3 letras).</p>
+                </div>
+
+                <div class="field">
+                  <label for="phone">Teléfono / WhatsApp <span class="required" aria-hidden="true">*</span></label>
+                  <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="Ej. 311 814 3694" maxlength="25" inputmode="tel" aria-describedby="phoneError" required>
+                  <p class="field__error" id="phoneError">Ingresa un teléfono válido de 7 a 13 dígitos.</p>
+                </div>
+
+                <div class="field">
+                  <label for="email">Correo electrónico <span class="required" aria-hidden="true">*</span></label>
+                  <input id="email" name="email" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com" maxlength="120" aria-describedby="emailError" required>
+                  <p class="field__error" id="emailError">Ingresa un correo electrónico válido.</p>
+                </div>
+
+                <div class="field">
+                  <label for="eventType">Tipo de evento <span class="required" aria-hidden="true">*</span></label>
+                  <select id="eventType" name="eventType" aria-describedby="eventTypeError" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="Cumpleaños">Cumpleaños</option>
+                    <option value="Celebración familiar">Celebración familiar</option>
+                    <option value="Evento escolar">Evento escolar</option>
+                    <option value="Evento empresarial">Evento empresarial</option>
+                    <option value="Reunión">Reunión</option>
+                    <option value="Celebración especial">Celebración especial</option>
+                    <option value="Fiesta temática">Fiesta temática</option>
+                    <option value="Otro">Otro</option>
+                  </select>
+                  <p class="field__error" id="eventTypeError">Selecciona el tipo de evento.</p>
+                </div>
+
+                <div class="field">
+                  <label for="date">Fecha aproximada <span class="optional">(opcional)</span></label>
+                  <input id="date" name="date" type="date" aria-describedby="dateError">
+                  <p class="field__error" id="dateError">Elige una fecha igual o posterior a hoy.</p>
+                </div>
+
+                <div class="field">
+                  <label for="guests">Número de invitados <span class="optional">(opcional)</span></label>
+                  <input id="guests" name="guests" type="number" min="1" max="5000" step="1" inputmode="numeric" placeholder="Ej. 80" aria-describedby="guestsError">
+                  <p class="field__error" id="guestsError">Indica un número entre 1 y 5000.</p>
+                </div>
+
+                <div class="field field--full">
+                  <label for="message">Mensaje <span class="optional">(opcional)</span></label>
+                  <textarea id="message" name="message" rows="4" maxlength="700" placeholder="Cuéntanos qué quieres celebrar, el lugar y los detalles que tienes en mente..." aria-describedby="messageError"></textarea>
+                  <p class="field__error" id="messageError">El mensaje es demasiado largo.</p>
+                </div>
+
+                <div class="field--full form-actions">
+                  <button class="btn btn--primary" type="submit">
+                    Solicitar cotización
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </button>
+                  <p class="form-note">Al enviar aceptas que te contactemos por teléfono, correo o WhatsApp. Tus datos no se comparten con terceros.</p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#inicio" aria-label="EVENTECH, ir al inicio">
+            <img class="brand__logo" src="eventech%20logo.png" alt="Logo de EVENTECH" width="435" height="436" loading="lazy">
+            <span class="brand__text">
+              <strong>EVENTECH</strong>
+              <small>Catering &amp; eventos</small>
+            </span>
+          </a>
+          <p>Lo que otros sueñan, nuestras manos lo diseñan. Catering y organización integral de eventos en el sur de Bogotá.</p>
+          <div class="socials">
+            <a class="social-link" href="https://instagram.com/eventec_" target="_blank" rel="noopener" aria-label="Instagram de EVENTECH">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".7" fill="currentColor"/></svg>
+              Instagram
+            </a>
+            <a class="social-link" href="https://facebook.com/eventech_" target="_blank" rel="noopener" aria-label="Facebook de EVENTECH">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H7v3h3v6h3v-6h3l1-3h-4v-2c0-.6.4-1 1-1Z"/></svg>
+              Facebook
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explora</h4>
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#mision">Misión y visión</a></li>
+            <li><a href="#eventos">Eventos</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="#servicios">Catering</a></li>
+            <li><a href="#servicios">Decoración</a></li>
+            <li><a href="#servicios">DJ y música</a></li>
+            <li><a href="#servicios">Entretenimiento</a></li>
+            <li><a href="#servicios">Organización y logística</a></li>
+            <li><a href="#servicios">Eventos personalizados</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Contacto</h4>
+          <address>Calle 45A Sur #51D-13<br>Bogotá, Colombia</address>
+          <ul style="margin-top:.8rem">
+            <li><a href="https://wa.me/573118143694" target="_blank" rel="noopener">WhatsApp: 311 814 3694</a></li>
+            <li><a href="mailto:eventechsas@gmail.com">eventechsas@gmail.com</a></li>
+            <li><a href="https://instagram.com/eventec_" target="_blank" rel="noopener">Instagram: eventec_</a></li>
+            <li><a href="https://facebook.com/eventech_" target="_blank" rel="noopener">Facebook: eventech_</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="year">2026</span> EVENTECH. Todos los derechos reservados.</p>
+        <p>Hecho con cariño en el sur de Bogotá.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botón para volver al inicio -->
+  <button class="to-top" id="toTop" type="button" aria-label="Volver al inicio">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <!-- ============================================================
+       JAVASCRIPT · Navegación, animaciones y formulario
+       ============================================================ -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ---------- Referencias principales ---------- */
+      const header = document.getElementById('siteHeader');
+      const navToggle = document.getElementById('navToggle');
+      const nav = document.getElementById('primaryNav');
+      const navLinks = Array.from(document.querySelectorAll('.nav a[href^="#"]'));
+      const toTop = document.getElementById('toTop');
+      const form = document.getElementById('quoteForm');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---------- Menú responsive ---------- */
+      function openNav() {
+        header.classList.add('nav-open');
+        document.body.classList.add('nav-open');
+        navToggle.setAttribute('aria-expanded', 'true');
+        navToggle.setAttribute('aria-label', 'Cerrar menú de navegación');
+      }
+
+      function closeNav() {
+        header.classList.remove('nav-open');
+        document.body.classList.remove('nav-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'Abrir menú de navegación');
+      }
+
+      navToggle.addEventListener('click', function () {
+        if (navToggle.getAttribute('aria-expanded') === 'true') {
+          closeNav();
+        } else {
+          openNav();
+        }
+      });
+
+      nav.addEventListener('click', function (event) {
+        if (event.target.closest('a')) closeNav();
+      });
+
+      document.addEventListener('click', function (event) {
+        if (header.classList.contains('nav-open') && !event.target.closest('#siteHeader')) {
+          closeNav();
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && header.classList.contains('nav-open')) {
+          closeNav();
+          navToggle.focus();
+        }
+      });
+
+      window.matchMedia('(min-width: 981px)').addEventListener('change', function (event) {
+        if (event.matches) closeNav();
+      });
+
+      /* ---------- Header fijo, scrollspy y botón "volver arriba" ---------- */
+      const sections = ['inicio', 'nosotros', 'servicios', 'mision', 'eventos', 'contacto']
+        .map(function (id) { return document.getElementById(id); })
+        .filter(Boolean);
+
+      let ticking = false;
+
+      function onScroll() {
+        const y = window.scrollY;
+        header.classList.toggle('is-scrolled', y > 12);
+        toTop.classList.toggle('is-visible', y > 600);
+
+        const marker = y + header.offsetHeight + 60;
+        let current = sections.length ? sections[0].id : '';
+
+        sections.forEach(function (section) {
+          if (section.offsetTop <= marker) current = section.id;
+        });
+
+        if (window.innerHeight + y >= document.documentElement.scrollHeight - 8) {
+          current = 'contacto';
+        }
+
+        navLinks.forEach(function (link) {
+          const isActive = link.getAttribute('href') === '#' + current;
+          link.classList.toggle('is-active', isActive);
+          if (isActive) {
+            link.setAttribute('aria-current', 'location');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          window.requestAnimationFrame(onScroll);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      onScroll();
+
+      toTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      });
+
+      /* ---------- Animaciones suaves al hacer scroll ---------- */
+      const revealItems = document.querySelectorAll('.reveal');
+
+      if ('IntersectionObserver' in window && !reduceMotion) {
+        const revealObserver = new IntersectionObserver(function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+        revealItems.forEach(function (item) { revealObserver.observe(item); });
+      } else {
+        revealItems.forEach(function (item) { item.classList.add('is-visible'); });
+      }
+
+      /* ---------- Formulario: validación y mensaje de WhatsApp ---------- */
+      if (form) {
+        const successBox = document.getElementById('formSuccess');
+        const successText = document.getElementById('successText');
+        const successWhatsApp = document.getElementById('successWhatsApp');
+        const successClose = document.getElementById('successClose');
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        const fieldNames = ['name', 'phone', 'email', 'eventType', 'date', 'guests', 'message'];
+        const fields = fieldNames.map(function (name) {
+          const input = form.elements[name];
+          return {
+            name: name,
+            input: input,
+            field: input.closest('.field'),
+            error: input.closest('.field').querySelector('.field__error')
+          };
+        });
+
+        const today = new Date();
+        const todayISO = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+          .toISOString().slice(0, 10);
+        const dateInput = form.elements.date;
+        dateInput.min = todayISO;
+
+        const validators = {
+          name: function (value) { return value.trim().length >= 3; },
+          phone: function (value) {
+            const digits = value.replace(/\D/g, '');
+            return /^[+\d\s().-]{7,25}$/.test(value.trim()) && digits.length >= 7 && digits.length <= 13;
+          },
+          email: function (value) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim());
+          },
+          eventType: function (value) { return value !== ''; },
+          date: function (value) {
+            if (!value) return true;
+            const chosen = new Date(value + 'T00:00:00');
+            const start = new Date();
+            start.setHours(0, 0, 0, 0);
+            return chosen >= start;
+          },
+          guests: function (value) {
+            if (!value) return true;
+            const number = Number(value);
+            return Number.isInteger(number) && number >= 1 && number <= 5000;
+          },
+          message: function (value) { return value.length <= 700; }
+        };
+
+        function validateField(item, showError) {
+          const isValid = validators[item.name](item.input.value);
+          if (showError) {
+            item.field.classList.toggle('has-error', !isValid);
+            item.input.setAttribute('aria-invalid', isValid ? 'false' : 'true');
+          }
+          return isValid;
+        }
+
+        fields.forEach(function (item) {
+          item.input.addEventListener('blur', function () {
+            validateField(item, true);
+          });
+
+          item.input.addEventListener('input', function () {
+            if (item.field.classList.contains('has-error')) validateField(item, true);
+            if (successBox && !successBox.hidden) successBox.hidden = true;
+          });
+
+          item.input.addEventListener('change', function () {
+            if (item.field.classList.contains('has-error')) validateField(item, true);
+          });
+        });
+
+        if (successClose) {
+          successClose.addEventListener('click', function () {
+            successBox.hidden = true;
+          });
+        }
+
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+
+          let firstInvalid = null;
+          fields.forEach(function (item) {
+            const isValid = validateField(item, true);
+            if (!isValid && !firstInvalid) firstInvalid = item.input;
+          });
+
+          if (firstInvalid) {
+            firstInvalid.focus({ preventScroll: true });
+            firstInvalid.scrollIntoView({
+              behavior: reduceMotion ? 'auto' : 'smooth',
+              block: 'center'
+            });
+            return;
+          }
+
+          const data = {
+            name: form.elements.name.value.trim(),
+            phone: form.elements.phone.value.trim(),
+            email: form.elements.email.value.trim(),
+            eventType: form.elements.eventType.value,
+            date: form.elements.date.value,
+            guests: form.elements.guests.value,
+            message: form.elements.message.value.trim()
+          };
+
+          const lines = [
+            'Hola EVENTECH, quiero cotizar un evento.',
+            '',
+            'Nombre: ' + data.name,
+            'Teléfono: ' + data.phone,
+            'Correo: ' + data.email,
+            'Tipo de evento: ' + data.eventType,
+            'Fecha aproximada: ' + (data.date || 'Por definir'),
+            'Número de invitados: ' + (data.guests || 'Por definir'),
+            'Mensaje: ' + (data.message || 'Sin mensaje adicional.')
+          ];
+
+          successWhatsApp.href = 'https://wa.me/573118143694?text=' + encodeURIComponent(lines.join('\n'));
+          successText.textContent = 'Gracias, ' + data.name.split(' ')[0] +
+            '. Tu solicitud está lista: envíala por WhatsApp para confirmar la cotización y te responderemos lo antes posible.';
+          successBox.hidden = false;
+
+          form.reset();
+          dateInput.min = todayISO;
+
+          fields.forEach(function (item) {
+            item.field.classList.remove('has-error');
+            item.input.removeAttribute('aria-invalid');
+          });
+
+          successBox.scrollIntoView({
+            behavior: reduceMotion ? 'auto' : 'smooth',
+            block: 'center'
+          });
+          submitButton.blur();
+        });
+      }
+
+      /* ---------- Año dinámico del footer ---------- */
+      const year = document.getElementById('year');
+      if (year) year.textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
